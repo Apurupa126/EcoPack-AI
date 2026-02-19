@@ -28,3 +28,6 @@ requests
 # Optional: Jupyter notebooks for training/testing (not needed in deployment)
 notebook
 
+
+# Web server
+gunicorn
