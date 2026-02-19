@@ -16,7 +16,6 @@ xgboost
 
 # Serialization / Pickle support
 joblib
-pickle5
 
 # Data visualization (analytics module)
 matplotlib
@@ -28,3 +27,4 @@ requests
 
 # Optional: Jupyter notebooks for training/testing (not needed in deployment)
 notebook
+
