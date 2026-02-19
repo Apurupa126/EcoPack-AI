@@ -2,9 +2,9 @@
 # EcoPack AI - Main Flask Application
 # ==========================================================
 
+import os
 from flask import Flask, render_template, request, jsonify
 import pandas as pd
-import os
 
 # Local imports
 from ml.ranking import get_material_ranking
@@ -64,9 +64,7 @@ def ranking():
         if not data:
             return jsonify({"error": "No input data provided"}), 400
 
-        # ==========================================
         # CALL ML MODEL
-        # ==========================================
         df = get_material_ranking(
             product_type=data.get("product_type"),
             product_category=data.get("product_category"),
@@ -81,21 +79,21 @@ def ranking():
                 "metrics": {}
             })
 
-        # ==========================================
         # KEEP TOP 5 RESULTS
-        # ==========================================
         df = df.head(5).copy()
         df["rank"] = range(1, len(df) + 1)
 
-        # Convert numeric columns safely
-        numeric_cols = ["cost_rupees", "co2_score", "suitability_score", "final_score"]
+        numeric_cols = [
+            "cost_rupees",
+            "co2_score",
+            "suitability_score",
+            "final_score"
+        ]
         for col in numeric_cols:
             if col in df.columns:
                 df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0).astype(float)
 
-        # ==========================================
         # SAVE TO DATABASE
-        # ==========================================
         try:
             df.to_sql(
                 "prediction_history",
@@ -106,14 +104,9 @@ def ranking():
         except Exception as db_error:
             print("Database Save Error:", db_error)
 
-        # ==========================================
         # CALCULATE KPI METRICS
-        # ==========================================
         metrics = calculate_dashboard_metrics(df)
 
-        # ==========================================
-        # RETURN RESPONSE
-        # ==========================================
         return jsonify({
             "ranking": df.to_dict(orient="records"),
             "metrics": metrics
@@ -204,9 +197,10 @@ def export_excel_api():
         return jsonify({"error": str(e)}), 500
 
 # ==========================================================
-# RUN APPLICATION (RENDER-READY)
+# RUN APPLICATION
 # ==========================================================
 
 if __name__ == "__main__":
+    # Render provides the PORT environment variable
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=True)
