@@ -1,0 +1,30 @@
+# Flask backend
+Flask==2.3.5
+Flask-Cors==3.1.1
+
+# Database
+SQLAlchemy==2.0.22
+psycopg2-binary==2.9.9
+
+# Data processing
+pandas==2.1.1
+numpy==1.26.0
+
+# Machine Learning
+scikit-learn==1.3.2
+xgboost==1.7.6
+
+# Serialization / Pickle support
+joblib==1.3.2
+pickle5==0.0.12
+
+# Data visualization (analytics module)
+matplotlib==3.9.2
+seaborn==0.12.3
+
+# For API testing & development
+python-dotenv==1.0.0
+requests==2.32.0
+
+# Optional: For Jupyter notebooks if you train models interactively
+notebook==7.1.5
