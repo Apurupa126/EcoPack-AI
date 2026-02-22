@@ -1,0 +1,12 @@
+flask
+pandas
+numpy
+python-dotenv
+reportlab
+openpyxl
+matplotlib
+pytz
+gunicorn
+sqlalchemy
+psycopg2-binary
+scikit-learn
