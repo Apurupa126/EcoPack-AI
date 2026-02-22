@@ -1,4 +1,4 @@
-🌱 **EcoPackAI – AI-Powered Sustainable Packaging Recommendation System**
+# 🌱 EcoPackAI – AI-Powered Sustainable Packaging Recommendation System
 
 EcoPack-AI is an AI-powered Sustainable Packaging Recommendation System that helps businesses select eco-friendly packaging materials by optimizing cost, CO₂ emissions, and material suitability. It provides intelligent recommendations, predictive analytics, and exportable reports to support data-driven sustainable packaging decisions.
 
