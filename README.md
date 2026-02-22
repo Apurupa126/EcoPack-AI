@@ -10,15 +10,6 @@ Traditional packaging often relies on non-biodegradable materials, leading to:
 - High packaging costs due to inefficient material selection  
 - Lack of intelligent decision-support systems for sustainable alternatives  
 
-**Challenges faced by manual material selection:**
-
-- **Environmental Impact:** Plastics and conventional materials harm ecosystems  
-- **Cost Constraints:** Eco-friendly materials can be more expensive  
-- **Fragility & Product Safety:** Some sustainable materials lack sufficient strength  
-- **Material Availability & Standardization:** Limited availability and specifications  
-- **CO₂ & Lifecycle Assessment:** Complex and data-intensive to calculate  
-- **Consumer Preferences:** Not always aligned with sustainability  
-
 **Solution Overview**
 
 EcoPack-AI is a full-stack AI platform that:
@@ -69,11 +60,11 @@ EcoPack-AI is a full-stack AI platform that:
 **Machine Learning Models**
 
 - **Random Forest:** Predicts packaging cost  
-- **XGBoost:** Predicts CO₂ emissions  
-- **Evaluation Metrics:** RMSE, MAE, R² Score  
-<img width="781" height="493" alt="Screenshot (70)" src="https://github.com/user-attachments/assets/6984ff5e-afbb-41c4-8b27-839eeb4389d0" />
+- **XGBoost:** Predicts CO₂ emissions
 
-- **Data Split:** Training and testing sets for reliable evaluation  
+  
+**Evaluation Metrics:** RMSE, MAE, R² Score  
+<img width="781" height="493" alt="Screenshot (70)" src="https://github.com/user-attachments/assets/6984ff5e-afbb-41c4-8b27-839eeb4389d0" />
 
 
 **Ranking Logic**
