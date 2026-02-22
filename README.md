@@ -1,168 +1,161 @@
 🌱 **EcoPack-AI**
 
-EcoPack-AI is an AI-powered Sustainable Packaging Recommendation System that helps businesses choose eco-friendly packaging materials by balancing cost, CO₂ emissions, and material suitability.
+EcoPack-AI is an AI-powered Sustainable Packaging Recommendation System that helps businesses select eco-friendly packaging materials by optimizing cost, CO₂ emissions, and material suitability. It provides intelligent recommendations, predictive analytics, and exportable reports to support data-driven sustainable packaging decisions.
 
-Built with Flask, Machine Learning, and PostgreSQL, EcoPack-AI provides dashboard analytics, exportable reports, and REST API endpoints.
+*Problem Statement*
 
-Features
+Traditional packaging often relies on non-biodegradable materials, leading to:
 
-Intelligent Material Recommendation based on product category, fragility, shipping type, and sustainability priority
+- Environmental pollution and long-term ecological damage  
+- High packaging costs due to inefficient material selection  
+- Lack of intelligent decision-support systems for sustainable alternatives  
 
-Predictive Models: Random Forest for cost prediction, XGBoost for CO₂ impact and ranking
+*Challenges faced by manual material selection:*
 
-Weighted Scoring System combining cost, CO₂, and strength for final ranking
+- **Environmental Impact:** Plastics and conventional materials harm ecosystems  
+- **Cost Constraints:** Eco-friendly materials can be more expensive  
+- **Fragility & Product Safety:** Some sustainable materials lack sufficient strength  
+- **Material Availability & Standardization:** Limited availability and specifications  
+- **CO₂ & Lifecycle Assessment:** Complex and data-intensive to calculate  
+- **Consumer Preferences:** Not always aligned with sustainability  
 
-Interactive Dashboard with top materials, trends, and historical analytics
+*Solution Overview*
 
-Export Options: PDF and Excel report generation
+EcoPack-AI is a full-stack AI platform that:
 
-REST API for integration with other applications
+- Collects eco-friendly packaging material data and stores it in PostgreSQL  
+- Calculates sustainability metrics such as CO₂ impact and cost efficiency  
+- Uses Random Forest to predict packaging cost  
+- Uses XGBoost to predict CO₂ emissions and rank materials  
+- Provides a Flask backend to process user inputs and generate recommendations  
+- Displays results in a user-friendly frontend with dashboards and export options  
 
-Project Structure
+*Key Features*
+
+- **AI-Based Packaging Recommendations:** Top 3 eco-friendly materials per product input  
+- **CO₂ and Cost Prediction:** Enables sustainable and cost-effective decisions  
+- **Interactive Reports & Analytics:** PDF/Excel reports with CO₂, cost, and suitability comparisons  
+- **Weighted Scoring System:** Combines CO₂, cost, and strength for final ranking  
+- **REST API:** Integrate EcoPack-AI with other services or applications  
+
+*Technologies Used*
+
+- **Backend:** Python, Flask  
+- **Database:** PostgreSQL with SQLAlchemy  
+- **Machine Learning:** Random Forest, XGBoost, Scikit-Learn  
+- **Data Manipulation:** Pandas, NumPy  
+- **Visualization:** Matplotlib, Plotly  
+- **Frontend:** HTML, CSS, Bootstrap  
+- **Deployment:** Render, Heroku  
+- **Export:** ReportLab (PDF), OpenPyXL (Excel)  
+
+*System Architecture*
+
+- **User Interface Layer:** Collects product inputs (category, fragility, shipping type, sustainability priority)  
+- **Application Layer:** Flask backend processes inputs and calls ML models  
+- **Machine Learning Layer:** Predicts cost and CO₂ emissions; ranks materials  
+- **Database Layer:** Stores eco-friendly material dataset and recommendation history  
+- **Analytics & Output Layer:** Displays top 3 recommended materials, CO₂/cost comparisons, dashboards, and exportable reports  
+
+*Dataset Overview*
+
+- **Columns:** Material ID, Name, Strength, Weight Capacity, Cost, Biodegradability Score, CO₂ Score, Recyclability Percentage  
+- **Data preprocessing:** handled missing values, normalized numeric features, encoded categorical variables  
+
+*Machine Learning Models*
+
+- **Random Forest:** Predicts packaging cost  
+- **XGBoost:** Predicts CO₂ emissions  
+- **Evaluation Metrics:** RMSE, MAE, R² Score  
+- **Data Split:** Training and testing sets for reliable evaluation  
+
+*Ranking Logic*
+
+- Features normalized and weighted by sustainability priorities  
+- Final ranking considers predicted cost, CO₂ emission, and material suitability  
+
+*Dashboard Features*
+
+- Top 3 recommended materials per product input  
+- CO₂ and cost comparison graphs  
+- Material performance trends  
+- Exportable PDF and Excel reports  
+- Insights for cost reduction and sustainability optimization  
+
+*Future Scope*
+
+- Integrate real-time shipping & logistics data to optimize CO₂ and cost dynamically  
+- Enhanced dashboard analytics with trend predictions  
+- Expand database with new materials and categories  
+
+*Project Structure*
+
+
 EcoPackAI/
-
 ├── backend/
-
-│   ├── app.py                # Main Flask application & API endpoints
-
-│   ├── data.py               # Database connection & data loading
-
-│   ├── ml/
-
-│   │   └── ranking.py        # Material ranking & ML logic
-
-│   ├── analytics.py          # Dashboard metrics & trend calculations
-
-│   ├── export_utils.py       # PDF/Excel export functions
-
-│   ├── requirements.txt      # Python dependencies
-
-│   └── .env                  # Environment variables (DATABASE_URL, API_KEY)
-
-│
-
+│ ├── app.py # Flask app & API endpoints
+│ ├── data.py # Database connection & data loading
+│ ├── ml/
+│ │ └── ranking.py # ML models & material ranking logic
+│ ├── analytics.py # Dashboard metrics & trends
+│ ├── export_utils.py # PDF & Excel export functions
+│ ├── requirements.txt # Python dependencies
+│ └── .env # Environment variables
 ├── frontend/
-│   ├── templates/            # HTML pages
+│ ├── templates/ # HTML pages
+│ │ ├── index.html
+│ │ ├── intro.html
+│ │ └── dashboard.html
+│ └── static/ # CSS & JS files
+│ ├── css/style.css
+│ └── js/main.js
+├── render.yaml # Render deployment configuration
+├── Procfile # Start command for Render deployment
+└── README.md # Project documentation
 
-│   │   ├── index.html
 
+*Installation & Setup*
 
-│   │   ├── intro.html
+1. **Clone the repository**
+```bash
+git clone https://github.com/your-username/EcoPack-AI.git
+cd EcoPack-AI/backend
 
-│   │   └── dashboard.html
+Create virtual environment
 
-│   └── static/               # CSS & JS
-
-│       ├── css/style.css
-
-│       └── js/main.js
-
-│
-
-├── render.yaml               # Render deployment configuration
-
-├── Procfile                  # Render start command
-
-└── README.md                 # Project documentation
-
-How It Works
-
-Users input product category, fragility, shipping type, and sustainability priority
-
-Machine Learning models predict:
-
-Random Forest for packaging cost
-
-XGBoost for CO₂ footprint and material ranking
-
-Weighted Ranking Logic:
-
-Suitability Score = (Weco × CO2norm) + (Wcost × Costnorm) + (Wstrength × Strengthnorm)
-
-Dashboard displays top materials, CO₂ and cost trends, and historical insights
-
-Users can export reports as PDF or Excel
-
-Tech Stack
-Layer	Technology
-Backend	Python, Flask, SQLAlchemy
-Database	PostgreSQL
-ML Models	Random Forest, XGBoost, Scikit-Learn, Pandas
-Frontend	HTML, CSS, Bootstrap, JavaScript
-Visualization	Plotly
-Export	ReportLab (PDF), OpenPyXL (Excel)
-Deployment	Gunicorn, Render
-Installation & Setup
-
-Clone the repository
-
-git clone https://github.com/your-username/EcoPackAI.git
-cd EcoPackAI/backend
-
-Create Virtual Environment
-
+python -m venv venv
 # Windows
-python -m venv venv
 venv\Scripts\activate
-
 # Mac/Linux
-python -m venv venv
 source venv/bin/activate
 
-Install Dependencies
+Install dependencies
 
 pip install -r requirements.txt
 
-Configure PostgreSQL
+Setup PostgreSQL
 
 Create database: EcoPackAI
 
-Import materials table
+Import materials dataset
 
-Update .env:
+Update .env with DATABASE_URL and API_KEY
 
-DATABASE_URL=postgresql://username:password@localhost:5432/EcoPackAI
-API_KEY=your_api_key_here
-
-Run the Application
+Run application
 
 python app.py
 
-Access via: http://127.0.0.1:5000
+Access at: http://127.0.0.1:5000
 
 API Endpoints
-Endpoint	Method	Description
-/	GET	Health check / Home page
-/api/ranking	POST	Get top recommended materials
-/api/dashboard-metrics	GET	Fetch dashboard metrics
-/api/export/pdf	GET	Export recommendations as PDF
-/api/export/excel	GET	Export recommendations as Excel
-Machine Learning Details
 
-Cost Prediction: Random Forest Regressor
+Health Check: GET /
 
-CO₂ Prediction & Ranking: XGBoost
+Get Recommendations: POST /api/ranking
 
-Input Features: CO₂ score, suitability, material properties
+Dashboard Metrics: GET /api/dashboard-metrics
 
-Evaluation Metrics: R², RMSE, MAE
+Export PDF: GET /api/export/pdf
 
-Deployment (Render)
-
-Build Command:
-
-pip install -r backend/requirements.txt
-
-Start Command:
-
-gunicorn backend.app:app
-
-Environment Variables:
-
-DATABASE_URL
-
-API_KEY
-
-FLASK_ENV=production
-
+Export Excel: GET /api/export/excel
 Screenshots
