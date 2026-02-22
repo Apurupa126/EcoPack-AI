@@ -17,15 +17,19 @@ from export_utils import export_pdf, export_excel
 # Load Environment
 # =========================
 BACKEND_DIR = Path(__file__).resolve().parent
-env_path = BACKEND_DIR / ".env"
+env_path = BACKEND_DIR.parent / ".env"  # Assuming .env is at project root
 load_dotenv(dotenv_path=env_path)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 # =========================
-# Flask App (DEFAULT STRUCTURE)
+# Flask App
 # =========================
-app = Flask(__name__)   # IMPORTANT: no custom template/static folder
+app = Flask(
+    __name__,
+    template_folder=str(BACKEND_DIR.parent / "templates"),
+    static_folder=str(BACKEND_DIR.parent / "static")
+)
 
 # =========================
 # In-memory store
@@ -47,14 +51,12 @@ def home():
 def dashboard():
     return render_template("dashboard.html")
 
-
 # ==========================================================
 # MATERIAL RANKING API
 # ==========================================================
 @app.route("/api/ranking", methods=["POST"])
 def ranking():
     global LAST_RANKINGS
-
     try:
         data = request.get_json()
         if not data:
@@ -93,7 +95,6 @@ def ranking():
         print("Ranking API Error:", e)
         return jsonify({"error": str(e)}), 500
 
-
 # ==========================================================
 # DASHBOARD METRICS API
 # ==========================================================
@@ -115,7 +116,6 @@ def dashboard_metrics():
     except Exception as e:
         print("Dashboard Metrics Error:", e)
         return jsonify({"error": str(e)}), 500
-
 
 # ==========================================================
 # ANALYTICS / TRENDS API
@@ -139,7 +139,6 @@ def trends():
         print("Trends API Error:", e)
         return jsonify({"error": str(e)}), 500
 
-
 # ==========================================================
 # EXPORT PDF / EXCEL APIs
 # ==========================================================
@@ -147,14 +146,13 @@ def trends():
 def export_pdf_api():
     return export_pdf()
 
-
 @app.route("/api/export/excel", methods=["GET"])
 def export_excel_api():
     return export_excel()
-
 
 # ==========================================================
 # PRODUCTION RUN (Render uses gunicorn)
 # ==========================================================
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
