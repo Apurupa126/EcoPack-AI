@@ -20,28 +20,51 @@ REST API for integration with other applications
 
 Project Structure
 EcoPackAI/
+
 ├── backend/
+
 │   ├── app.py                # Main Flask application & API endpoints
+
 │   ├── data.py               # Database connection & data loading
+
 │   ├── ml/
+
 │   │   └── ranking.py        # Material ranking & ML logic
+
 │   ├── analytics.py          # Dashboard metrics & trend calculations
+
 │   ├── export_utils.py       # PDF/Excel export functions
+
 │   ├── requirements.txt      # Python dependencies
+
 │   └── .env                  # Environment variables (DATABASE_URL, API_KEY)
+
 │
+
 ├── frontend/
 │   ├── templates/            # HTML pages
+
 │   │   ├── index.html
+
+
 │   │   ├── intro.html
+
 │   │   └── dashboard.html
+
 │   └── static/               # CSS & JS
+
 │       ├── css/style.css
+
 │       └── js/main.js
+
 │
+
 ├── render.yaml               # Render deployment configuration
+
 ├── Procfile                  # Render start command
+
 └── README.md                 # Project documentation
+
 How It Works
 
 Users input product category, fragility, shipping type, and sustainability priority
