@@ -1,8 +1,8 @@
-🌱 **EcoPack-AI**
+🌱 **EcoPackAI – AI-Powered Sustainable Packaging Recommendation System**
 
 EcoPack-AI is an AI-powered Sustainable Packaging Recommendation System that helps businesses select eco-friendly packaging materials by optimizing cost, CO₂ emissions, and material suitability. It provides intelligent recommendations, predictive analytics, and exportable reports to support data-driven sustainable packaging decisions.
 
-*Problem Statement*
+**Problem Statement**
 
 Traditional packaging often relies on non-biodegradable materials, leading to:
 
@@ -10,7 +10,7 @@ Traditional packaging often relies on non-biodegradable materials, leading to:
 - High packaging costs due to inefficient material selection  
 - Lack of intelligent decision-support systems for sustainable alternatives  
 
-*Challenges faced by manual material selection:*
+**Challenges faced by manual material selection:**
 
 - **Environmental Impact:** Plastics and conventional materials harm ecosystems  
 - **Cost Constraints:** Eco-friendly materials can be more expensive  
@@ -19,7 +19,7 @@ Traditional packaging often relies on non-biodegradable materials, leading to:
 - **CO₂ & Lifecycle Assessment:** Complex and data-intensive to calculate  
 - **Consumer Preferences:** Not always aligned with sustainability  
 
-*Solution Overview*
+**Solution Overview**
 
 EcoPack-AI is a full-stack AI platform that:
 
@@ -30,7 +30,7 @@ EcoPack-AI is a full-stack AI platform that:
 - Provides a Flask backend to process user inputs and generate recommendations  
 - Displays results in a user-friendly frontend with dashboards and export options  
 
-*Key Features*
+**Key Features**
 
 - **AI-Based Packaging Recommendations:** Top 3 eco-friendly materials per product input  
 - **CO₂ and Cost Prediction:** Enables sustainable and cost-effective decisions  
@@ -38,7 +38,7 @@ EcoPack-AI is a full-stack AI platform that:
 - **Weighted Scoring System:** Combines CO₂, cost, and strength for final ranking  
 - **REST API:** Integrate EcoPack-AI with other services or applications  
 
-*Technologies Used*
+**Technologies Used**
 
 - **Backend:** Python, Flask  
 - **Database:** PostgreSQL with SQLAlchemy  
@@ -49,7 +49,7 @@ EcoPack-AI is a full-stack AI platform that:
 - **Deployment:** Render, Heroku  
 - **Export:** ReportLab (PDF), OpenPyXL (Excel)  
 
-*System Architecture*
+**System Architecture**
 
 - **User Interface Layer:** Collects product inputs (category, fragility, shipping type, sustainability priority)  
 - **Application Layer:** Flask backend processes inputs and calls ML models  
@@ -57,64 +57,84 @@ EcoPack-AI is a full-stack AI platform that:
 - **Database Layer:** Stores eco-friendly material dataset and recommendation history  
 - **Analytics & Output Layer:** Displays top 3 recommended materials, CO₂/cost comparisons, dashboards, and exportable reports  
 
-*Dataset Overview*
+**Dataset Overview**
 
 - **Columns:** Material ID, Name, Strength, Weight Capacity, Cost, Biodegradability Score, CO₂ Score, Recyclability Percentage  
 - **Data preprocessing:** handled missing values, normalized numeric features, encoded categorical variables  
 
-*Machine Learning Models*
+**Machine Learning Models**
 
 - **Random Forest:** Predicts packaging cost  
 - **XGBoost:** Predicts CO₂ emissions  
 - **Evaluation Metrics:** RMSE, MAE, R² Score  
 - **Data Split:** Training and testing sets for reliable evaluation  
 
-*Ranking Logic*
+**Ranking Logic**
 
 - Features normalized and weighted by sustainability priorities  
 - Final ranking considers predicted cost, CO₂ emission, and material suitability  
 
-*Dashboard Features*
+**Dashboard Features**
 
-- Top 3 recommended materials per product input  
+- Top 5 recommended materials per product input  
 - CO₂ and cost comparison graphs  
 - Material performance trends  
 - Exportable PDF and Excel reports  
 - Insights for cost reduction and sustainability optimization  
 
-*Future Scope*
+**Future Scope**
 
 - Integrate real-time shipping & logistics data to optimize CO₂ and cost dynamically  
 - Enhanced dashboard analytics with trend predictions  
 - Expand database with new materials and categories  
 
-*Project Structure*
+**Project Structure**
 
 
 EcoPackAI/
+
 ├── backend/
+
 │ ├── app.py # Flask app & API endpoints
+
 │ ├── data.py # Database connection & data loading
+
 │ ├── ml/
+
 │ │ └── ranking.py # ML models & material ranking logic
+
 │ ├── analytics.py # Dashboard metrics & trends
+
 │ ├── export_utils.py # PDF & Excel export functions
+
 │ ├── requirements.txt # Python dependencies
+
 │ └── .env # Environment variables
+
 ├── frontend/
+
 │ ├── templates/ # HTML pages
+
 │ │ ├── index.html
+
 │ │ ├── intro.html
+
 │ │ └── dashboard.html
+
 │ └── static/ # CSS & JS files
+
 │ ├── css/style.css
+
 │ └── js/main.js
+
 ├── render.yaml # Render deployment configuration
+
 ├── Procfile # Start command for Render deployment
+
 └── README.md # Project documentation
 
 
-*Installation & Setup*
+**Installation & Setup**
 
 1. **Clone the repository**
 ```bash
@@ -158,4 +178,3 @@ Dashboard Metrics: GET /api/dashboard-metrics
 Export PDF: GET /api/export/pdf
 
 Export Excel: GET /api/export/excel
-Screenshots
