@@ -1,0 +1,10 @@
+flask
+pandas
+numpy
+python-dotenv
+reportlab
+openpyxl
+matplotlib
+pytz
+gunicorn
+scikit-learn
