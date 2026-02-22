@@ -65,17 +65,22 @@ EcoPack-AI is a full-stack AI platform that:
 - **Columns:** Material ID, Name, Strength, Weight Capacity, Cost, Biodegradability Score, CO₂ Score, Recyclability Percentage  
 - **Data preprocessing:** handled missing values, normalized numeric features, encoded categorical variables  
 
+
 **Machine Learning Models**
 
 - **Random Forest:** Predicts packaging cost  
 - **XGBoost:** Predicts CO₂ emissions  
 - **Evaluation Metrics:** RMSE, MAE, R² Score  
+<img width="781" height="493" alt="Screenshot (70)" src="https://github.com/user-attachments/assets/6984ff5e-afbb-41c4-8b27-839eeb4389d0" />
+
 - **Data Split:** Training and testing sets for reliable evaluation  
+
 
 **Ranking Logic**
 
 - Features normalized and weighted by sustainability priorities  
 - Final ranking considers predicted cost, CO₂ emission, and material suitability  
+
 
 **Dashboard Features**
 
@@ -83,13 +88,7 @@ EcoPack-AI is a full-stack AI platform that:
 - CO₂ and cost comparison graphs  
 - Material performance trends  
 - Exportable PDF and Excel reports  
-- Insights for cost reduction and sustainability optimization  
-
-**Future Scope**
-
-- Integrate real-time shipping & logistics data to optimize CO₂ and cost dynamically  
-- Enhanced dashboard analytics with trend predictions  
-- Expand database with new materials and categories  
+- Insights for cost reduction and sustainability optimization    
 
 **Project Structure**
 
@@ -138,17 +137,22 @@ EcoPackAI/
 
 
 **MY DASHBOARD**
+
 **STRATING PAGE**
 <img width="912" height="884" alt="Screenshot (80)" src="https://github.com/user-attachments/assets/f12c2341-4c54-4d86-8286-be3e81d9b59c" />    <img width="939" height="913" alt="Screenshot (81)" src="https://github.com/user-attachments/assets/1a58bcb8-b1a0-482f-a8f1-4f79f39eb9be" />
+
 
 **USER INPUTS PAGE**
 <img width="1584" height="925" alt="Screenshot (82)" src="https://github.com/user-attachments/assets/d06351f4-50dc-4998-a9cd-57d02db3e51e" />     <img width="1267" height="901" alt="Screenshot (83)" src="https://github.com/user-attachments/assets/6d9edd9a-7a7d-4360-82c9-60bf72fb7ec4" />      <img width="1309" height="818" alt="Screenshot (84)" src="https://github.com/user-attachments/assets/d10717f9-33df-4228-8e11-39d0f499b54b" />
 
+
 **SUSTAINABILITY INTELLIGENCE DASHBOARD**
 <img width="1095" height="904" alt="Screenshot (85)" src="https://github.com/user-attachments/assets/af0780e7-3a34-41c3-b111-a8d8a409adc1" />
 
+
 **EXPORT PAGE**
 <img width="980" height="821" alt="Screenshot (86)" src="https://github.com/user-attachments/assets/b9aa5d1b-644c-419d-8793-7d9216b26bec" />
+
 
 
 
