@@ -51,6 +51,9 @@ EcoPack-AI is a full-stack AI platform that:
 
 **System Architecture**
 
+<img width="1920" height="1080" alt="Screenshot (69)" src="https://github.com/user-attachments/assets/a2409013-3dce-4dfe-8d37-31a23561c51a" />
+
+
 - **User Interface Layer:** Collects product inputs (category, fragility, shipping type, sustainability priority)  
 - **Application Layer:** Flask backend processes inputs and calls ML models  
 - **Machine Learning Layer:** Predicts cost and CO₂ emissions; ranks materials  
