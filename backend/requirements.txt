@@ -7,4 +7,6 @@ openpyxl
 matplotlib
 pytz
 gunicorn
+sqlalchemy
+psycopg2-binary
 scikit-learn
