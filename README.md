@@ -2,7 +2,7 @@
 
 EcoPack-AI is an AI-powered Sustainable Packaging Recommendation System that helps businesses select eco-friendly packaging materials by optimizing cost, CO₂ emissions, and material suitability. It provides intelligent recommendations, predictive analytics, and exportable reports to support data-driven sustainable packaging decisions.
 
-**Problem Statement**
+# PROBLEM STATEMENT
 
 Traditional packaging often relies on non-biodegradable materials, leading to:
 
@@ -10,7 +10,7 @@ Traditional packaging often relies on non-biodegradable materials, leading to:
 - High packaging costs due to inefficient material selection  
 - Lack of intelligent decision-support systems for sustainable alternatives  
 
-**Solution Overview**
+# SOLUTION OVERVIEW
 
 EcoPack-AI is a full-stack AI platform that:
 
@@ -21,7 +21,7 @@ EcoPack-AI is a full-stack AI platform that:
 - Provides a Flask backend to process user inputs and generate recommendations  
 - Displays results in a user-friendly frontend with dashboards and export options  
 
-**Key Features**
+# Key Features
 
 - **AI-Based Packaging Recommendations:** Top 3 eco-friendly materials per product input  
 - **CO₂ and Cost Prediction:** Enables sustainable and cost-effective decisions  
@@ -29,7 +29,7 @@ EcoPack-AI is a full-stack AI platform that:
 - **Weighted Scoring System:** Combines CO₂, cost, and strength for final ranking  
 - **REST API:** Integrate EcoPack-AI with other services or applications  
 
-**Technologies Used**
+# Technologies Used
 
 - **Backend:** Python, Flask  
 - **Database:** PostgreSQL with SQLAlchemy  
@@ -40,7 +40,7 @@ EcoPack-AI is a full-stack AI platform that:
 - **Deployment:** Render, Heroku  
 - **Export:** ReportLab (PDF), OpenPyXL (Excel)  
 
-**System Architecture**
+# System Architecture
 
 <img width="962" height="896" alt="Screenshot (69)" src="https://github.com/user-attachments/assets/fc71dee8-83e9-41ae-9b37-272fb8e2d6d1" />
 
@@ -51,29 +51,30 @@ EcoPack-AI is a full-stack AI platform that:
 - **Database Layer:** Stores eco-friendly material dataset and recommendation history  
 - **Analytics & Output Layer:** Displays top 3 recommended materials, CO₂/cost comparisons, dashboards, and exportable reports  
 
-**Dataset Overview**
+# Dataset Overview
 
 - **Columns:** Material ID, Name, Strength, Weight Capacity, Cost, Biodegradability Score, CO₂ Score, Recyclability Percentage  
 - **Data preprocessing:** handled missing values, normalized numeric features, encoded categorical variables  
 
 
-**Machine Learning Models**
+# Machine Learning Models
 
 - **Random Forest:** Predicts packaging cost  
 - **XGBoost:** Predicts CO₂ emissions
 
   
-**Evaluation Metrics:** RMSE, MAE, R² Score  
+# Evaluation Metrics 
+ **RMSE, MAE, R² Score**
 <img width="781" height="493" alt="Screenshot (70)" src="https://github.com/user-attachments/assets/6984ff5e-afbb-41c4-8b27-839eeb4389d0" />
 
 
-**Ranking Logic**
+# Ranking Logic
 
 - Features normalized and weighted by sustainability priorities  
 - Final ranking considers predicted cost, CO₂ emission, and material suitability  
 
 
-**Dashboard Features**
+# Dashboard Features
 
 - Top 5 recommended materials per product input  
 - CO₂ and cost comparison graphs  
@@ -81,7 +82,7 @@ EcoPack-AI is a full-stack AI platform that:
 - Exportable PDF and Excel reports  
 - Insights for cost reduction and sustainability optimization    
 
-**Project Structure**
+# Project Structure
 
 
 EcoPackAI/
@@ -127,7 +128,7 @@ EcoPackAI/
 └── README.md # Project documentation
 
 
-**MY DASHBOARD**
+# MY DASHBOARD
 
 **STRATING PAGE**
 <img width="912" height="884" alt="Screenshot (80)" src="https://github.com/user-attachments/assets/f12c2341-4c54-4d86-8286-be3e81d9b59c" />    <img width="939" height="913" alt="Screenshot (81)" src="https://github.com/user-attachments/assets/1a58bcb8-b1a0-482f-a8f1-4f79f39eb9be" />
@@ -147,7 +148,7 @@ EcoPackAI/
 
 
 
-**Installation & Setup**
+# Installation & Setup
 
 1. **Clone the repository**
 ```bash
