@@ -10,3 +10,5 @@ gunicorn
 sqlalchemy
 psycopg2-binary
 joblib
+xgboost
+pytz
