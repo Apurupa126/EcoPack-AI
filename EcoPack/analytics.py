@@ -1,0 +1,159 @@
+# analytics.py
+
+import pandas as pd
+
+# ==========================================================
+# GLOBAL IN-MEMORY STORE
+# This will be updated from app.py after ranking API runs
+# ==========================================================
+LAST_RANKINGS = pd.DataFrame()
+
+
+# ==========================================================
+# 1️⃣ DASHBOARD METRICS
+# ==========================================================
+def calculate_dashboard_metrics(df):
+
+    if df is None or df.empty:
+        return {
+            "avg_co2": 0,
+            "avg_cost": 0,
+            "avg_suitability": 0,
+            "co2_reduction_percent": 0,
+            "cost_savings_percent": 0
+        }
+
+    # IMPORTANT → work on copy (avoid mutation bug)
+    df = df.copy()
+
+    df["co2_score"] = pd.to_numeric(df.get("co2_score"), errors="coerce").fillna(0)
+    df["cost_rupees"] = pd.to_numeric(df.get("cost_rupees"), errors="coerce").fillna(0)
+    df["suitability_score"] = pd.to_numeric(df.get("suitability_score"), errors="coerce").fillna(0)
+
+    avg_co2 = df["co2_score"].mean()
+    avg_cost = df["cost_rupees"].mean()
+    avg_suitability = df["suitability_score"].mean()
+
+    # Baseline reference (traditional packaging)
+    traditional_co2 = 15
+    traditional_cost = 10
+
+    co2_reduction = ((traditional_co2 - avg_co2) / traditional_co2) * 100
+    cost_savings = ((traditional_cost - avg_cost) / traditional_cost) * 100
+
+    return {
+        "avg_co2": round(float(avg_co2), 2),
+        "avg_cost": round(float(avg_cost), 2),
+        "avg_suitability": round(float(avg_suitability), 2),
+        "co2_reduction_percent": round(float(co2_reduction), 2),
+        "cost_savings_percent": round(float(cost_savings), 2)
+    }
+
+
+# ==========================================================
+# 2️⃣ TOP 5 COMPARISON DATA
+# ==========================================================
+def get_top5_comparison_data():
+
+    global LAST_RANKINGS
+
+    if LAST_RANKINGS is None or LAST_RANKINGS.empty:
+        return []
+
+    required_cols = [
+        "material_name",
+        "cost_rupees",
+        "co2_score",
+        "suitability_score"
+    ]
+
+    cols = [c for c in required_cols if c in LAST_RANKINGS.columns]
+    if not cols:
+        return []
+
+    df = LAST_RANKINGS.copy()
+
+    for col in cols:
+        if col != "material_name":
+            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+
+    return df[cols].to_dict(orient="records")
+
+
+# ==========================================================
+# 3️⃣ MATERIAL USAGE TREND
+# ==========================================================
+def get_material_usage_trend():
+
+    global LAST_RANKINGS
+
+    if LAST_RANKINGS is None or LAST_RANKINGS.empty:
+        return []
+
+    if "material_name" not in LAST_RANKINGS.columns:
+        return []
+
+    trend = LAST_RANKINGS["material_name"].value_counts().head(5)
+
+    return [
+        {"material_name": str(name), "count": int(count)}
+        for name, count in trend.items()
+    ]
+
+
+# ==========================================================
+# 4️⃣ CO2 TREND
+# ==========================================================
+def get_co2_trend():
+
+    global LAST_RANKINGS
+
+    if LAST_RANKINGS is None or LAST_RANKINGS.empty:
+        return []
+
+    if "material_name" not in LAST_RANKINGS.columns:
+        return []
+
+    if "co2_score" not in LAST_RANKINGS.columns:
+        return []
+
+    df = LAST_RANKINGS.copy()
+    df["co2_score"] = pd.to_numeric(df["co2_score"], errors="coerce").fillna(0)
+
+    trend = (
+        df.groupby("material_name")["co2_score"]
+        .mean()
+        .reset_index()
+        .rename(columns={"co2_score": "avg_co2"})
+    )
+
+    return trend.to_dict(orient="records")
+
+
+# ==========================================================
+# 5️⃣ COST TREND
+# ==========================================================
+def get_cost_trend():
+
+    global LAST_RANKINGS
+
+    if LAST_RANKINGS is None or LAST_RANKINGS.empty:
+        return []
+
+    if "material_name" not in LAST_RANKINGS.columns:
+        return []
+
+    if "cost_rupees" not in LAST_RANKINGS.columns:
+        return []
+
+    df = LAST_RANKINGS.copy()
+    df["cost_rupees"] = pd.to_numeric(df["cost_rupees"], errors="coerce").fillna(0)
+
+    trend = (
+        df.groupby("material_name")["cost_rupees"]
+        .mean()
+        .reset_index()
+        .rename(columns={"cost_rupees": "avg_cost"})
+    )
+
+    return trend.to_dict(orient="records")

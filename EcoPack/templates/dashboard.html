@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EcoPack AI Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+background:linear-gradient(135deg,#e8f5e9,#fffde7);
+font-family:'Segoe UI';
+}
+
+/* HEADER */
+h2{
+font-weight:700;
+color:#2E7D32;
+text-shadow:1px 1px 2px #c8e6c9;
+}
+
+/* KPI CARD */
+.kpi-card{
+border-radius:18px;
+padding:25px;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(10px);
+box-shadow:0 8px 30px rgba(0,0,0,0.1);
+transition:0.3s;
+border-left:6px solid #43A047;
+}
+.kpi-card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+.kpi-card h6{
+font-weight:600;
+color:#558B2F;
+}
+.kpi-card h4{
+font-weight:bold;
+color:#1B5E20;
+}
+
+/* CHART CARD */
+.chart-card{
+border-radius:20px;
+padding:25px;
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(12px);
+box-shadow:0 10px 35px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+.chart-card:hover{
+transform:translateY(-5px);
+box-shadow:0 18px 40px rgba(0,0,0,0.15);
+}
+
+/* BUTTONS */
+.btn-danger{
+background:linear-gradient(135deg,#D32F2F,#F44336);
+border:none;
+border-radius:10px;
+padding:10px 20px;
+}
+.btn-success{
+background:linear-gradient(135deg,#388E3C,#66BB6A);
+border:none;
+border-radius:10px;
+padding:10px 20px;
+}
+.btn-secondary{
+border-radius:10px;
+padding:10px 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-5">📊 Sustainability Intelligence Dashboard</h2>
+
+<!-- KPI SECTION -->
+<div class="row text-center mb-5">
+
+<div class="col-md-3 mb-3">
+<div class="kpi-card">
+<h6>🌍 Avg CO₂</h6>
+<h4 id="avgCO2">--</h4>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="kpi-card">
+<h6>💰 Avg Cost</h6>
+<h4 id="avgCost">--</h4>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="kpi-card">
+<h6>📉 CO₂ Reduction %</h6>
+<h4 id="co2Reduction">--</h4>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="kpi-card">
+<h6>💵 Cost Savings %</h6>
+<h4 id="costSavings">--</h4>
+</div>
+</div>
+
+</div>
+
+<!-- CHARTS ROW 1 -->
+<div class="row">
+<div class="col-md-6 mb-4">
+<div class="chart-card">
+<h5 class="text-center mb-3">Top 5 Cost Comparison</h5>
+<canvas id="costChart"></canvas>
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="chart-card">
+<h5 class="text-center mb-3">Top 5 CO₂ Comparison</h5>
+<canvas id="co2Chart"></canvas>
+</div>
+</div>
+</div>
+
+<!-- CHARTS ROW 2 -->
+<div class="row">
+<div class="col-md-6 mb-4">
+<div class="chart-card">
+<h5 class="text-center mb-3">Suitability Comparison</h5>
+<canvas id="suitabilityChart"></canvas>
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="chart-card">
+<h5 class="text-center mb-3">Material Usage Trend</h5>
+<canvas id="usageChart"></canvas>
+</div>
+</div>
+</div>
+
+<!-- BUTTONS -->
+<div class="text-center mt-4 mb-5">
+<button onclick="exportPDF()" class="btn btn-danger me-3">Export PDF</button>
+<button onclick="exportExcel()" class="btn btn-success me-3">Export Excel</button>
+<a href="/" class="btn btn-secondary">Back</a>
+</div>
+
+</div>
+
+<script>
+
+let charts=[];
+
+async function loadMetrics(){
+
+const res=await fetch("/api/dashboard-metrics");
+const data=await res.json();
+
+document.getElementById("avgCO2").innerText=
+Number(data.avg_co2).toFixed(2)+" kg";
+
+document.getElementById("avgCost").innerText=
+"₹ "+Number(data.avg_cost).toFixed(2);
+
+document.getElementById("co2Reduction").innerText=
+Number(data.co2_reduction_percent).toFixed(2)+" %";
+
+document.getElementById("costSavings").innerText=
+Number(data.cost_savings_percent).toFixed(2)+" %";
+}
+
+async function loadCharts(){
+
+const res=await fetch("/api/trends");
+const data=await res.json();
+
+if(!data.comparison || data.comparison.length===0) return;
+
+charts.forEach(c=>c.destroy());
+charts=[];
+
+const materials=data.comparison.map(x=>x.material_name);
+const costs=data.comparison.map(x=>Number(x.cost_rupees));
+const co2=data.comparison.map(x=>Number(x.co2_score));
+const suitability=data.comparison.map(x=>Number(x.suitability_score));
+
+const usageMat=data.usage_trend.map(x=>x.material_name);
+const usageCount=data.usage_trend.map(x=>Number(x.count));
+
+/* COST - Blue */
+charts.push(new Chart(costChart,{
+type:"bar",
+data:{
+labels:materials,
+datasets:[{
+label:"Cost ₹",
+data:costs,
+backgroundColor:"rgba(33,150,243,0.6)",
+borderColor:"#1565C0",
+borderWidth:2,
+borderRadius:8
+}]
+},
+options:{plugins:{legend:{display:false}}}
+}));
+
+/* CO2 - Red */
+charts.push(new Chart(co2Chart,{
+type:"bar",
+data:{
+labels:materials,
+datasets:[{
+label:"CO₂ Score",
+data:co2,
+backgroundColor:"rgba(244,67,54,0.6)",
+borderColor:"#C62828",
+borderWidth:2,
+borderRadius:8
+}]
+},
+options:{plugins:{legend:{display:false}}}
+}));
+
+/* SUITABILITY - Green */
+charts.push(new Chart(suitabilityChart,{
+type:"line",
+data:{
+labels:materials,
+datasets:[{
+label:"Suitability",
+data:suitability,
+borderColor:"#2E7D32",
+backgroundColor:"rgba(76,175,80,0.2)",
+tension:0.4,
+fill:true,
+pointBackgroundColor:"#1B5E20",
+pointRadius:6
+}]
+}
+}));
+
+/* USAGE - Orange */
+charts.push(new Chart(usageChart,{
+type:"bar",
+data:{
+labels:usageMat,
+datasets:[{
+label:"Usage Count",
+data:usageCount,
+backgroundColor:"rgba(255,152,0,0.6)",
+borderColor:"#EF6C00",
+borderWidth:2,
+borderRadius:8
+}]
+},
+options:{plugins:{legend:{display:false}}}
+}));
+
+}
+
+function exportPDF(){window.open("/api/export/pdf");}
+function exportExcel(){window.open("/api/export/excel");}
+
+loadMetrics();
+loadCharts();
+
+</script>
+
+</body>
+</html>
